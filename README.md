@@ -1,3 +1,3 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/igareck/GoldCaviar/refs/heads/main/Files/vpn-configs-for-russia-4.svg" alt="DarkVPN" width="100%" style="max-width: 800px;">
+    <img src="https://raw.githubusercontent.com/Dowriz/DarkVPN/refs/heads/main/Files/Font.svg" width="100%" style="max-width: 800px;">
 </p>
