@@ -1,0 +1,71 @@
+<svg width="800" height="100" viewBox="0 0 800 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Анимированный градиент для текста (белый + голубой перелив) -->
+    <linearGradient id="textGradient" x1="-150%" y1="0%" x2="50%" y2="0%" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="30%" stop-color="#CCF0FF" />
+      <stop offset="50%" stop-color="#99E0FF" />
+      <stop offset="70%" stop-color="#CCF0FF" />
+      <stop offset="100%" stop-color="#FFFFFF" />
+      <animateTransform 
+        attributeName="gradientTransform" 
+        type="translate" 
+        values="0,0; 400,0; 0,0" 
+        dur="7s" 
+        repeatCount="indefinite" 
+        additive="sum" />
+    </linearGradient>
+    
+    <!-- Фильтр для заднего свечения (glow behind text) -->
+    <filter id="backGlow" x="-50%" y="-100%" width="200%" height="300%">
+      <!-- Размытие для создания свечения -->
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blurLarge" />
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blurMedium" />
+      
+      <!-- Применяем голубой цвет к размытию -->
+      <feColorMatrix in="blurLarge" type="matrix" values="0 0 0 0 0.3
+                                                          0 0 0 0 0.7
+                                                          0 0 0 0 1
+                                                          0 0 0 0.8 0" result="blueGlowLarge" />
+      <feColorMatrix in="blurMedium" type="matrix" values="0 0 0 0 0.4
+                                                           0 0 0 0 0.8
+                                                           0 0 0 0 1
+                                                           0 0 0 1 0" result="blueGlowMedium" />
+      
+      <!-- Объединяем свечения -->
+      <feMerge result="combinedGlow">
+        <feMergeNode in="blueGlowLarge" />
+        <feMergeNode in="blueGlowMedium" />
+      </feMerge>
+      
+      <!-- Накладываем свечение под оригинальный текст -->
+      <feComposite in="combinedGlow" in2="SourceGraphic" operator="over" />
+    </filter>
+    
+    <!-- Альтернативный фильтр с более мягким свечением -->
+    <filter id="softBackGlow" x="-40%" y="-80%" width="180%" height="260%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur" />
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.2
+                                                     0 0 0 0 0.6
+                                                     0 0 0 0 1
+                                                     0 0 0 0.9 0" result="glowColor" />
+      <feMerge>
+        <feMergeNode in="glowColor" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Прозрачный фон -->
+  <rect width="800" height="100" fill="none" />
+
+  <!-- Текст с задним свечением и градиентом -->
+  <text x="400" y="50" dominant-baseline="middle" text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="48"
+        font-weight="bold"
+        fill="url(#textGradient)"
+        filter="url(#softBackGlow)">
+    SOLIDUM VPN
+  </text>
+</svg>
