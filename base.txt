@@ -1,8 +1,8 @@
-# profile-title: Solidum | 08:55 (Moscow)
+# profile-title: Solidum | 08:57 Москва
 # profile-update-interval: 1
 # announce: Чужое нам не нужно – мы лучше за мемасиками понаблюдаем <3
 # support-url: https://t.me/SolidumVPN
-# Date/Time: 2026-03-23 / 08:55 (Moscow)
+# Date/Time: 2026-03-23 / 08:57 (Moscow)
 
 # Russia 🇷🇺
 vless://1f0a8364-ae34-07d0-b999-34a723111ebd@188.225.79.224:52006?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=max.ru&pbk=4CH3o5zOMcFNMbnwXnkAg0FFepmsc0QzhahXkUzb1ik&sid=d8c6b58bcbb0c323#1. Россия 🇷🇺
