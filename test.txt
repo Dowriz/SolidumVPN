@@ -1,6 +1,7 @@
 # profile-title: SolidumVPN
 # profile-update-interval: 1
-# announce: Чужое нам не нужно – мы лучше за мемасиками понаблюдаем <3\nХехе
+# announce: Чужое нам не нужно – мы лучше за мемасиками понаблюдаем <3
+  Хехе
 # support-url: https://t.me/SolidumVPN
 # Date/Time: 2026-03-24 / 09:25 (Moscow)
 
