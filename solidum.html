@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>SOLIDUM VPN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a2a 0%, #1a0b2e 30%, #2e1065 60%, #4c1d95 100%);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            position: relative;
+            cursor: default;
+        }
+
+        /* Snow Effect */
+        .snow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            user-select: none;
+            pointer-events: none;
+            opacity: 0.7;
+            font-size: 0.5em;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* Floating Particles Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(168, 85, 247, 0.3);
+            border-radius: 50%;
+            animation: float linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Cursor Glow Effect */
+        .cursor-glow {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(168, 85, 247, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 3;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease;
+        }
+
+        .content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Animated Gradient Title */
+        h1 {
+            font-size: clamp(1.75rem, 6vw, 3.5rem);
+            font-weight: 900;
+            font-family: 'Segoe UI', 'Arial Black', 'Impact', sans-serif;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: 0.025em;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #ffffff, #c084fc, #a855f7, #ffffff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInDown 0.8s ease-out, gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Tagline with typing effect - FIXED HEIGHT */
+        .tagline-wrapper {
+            min-height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .tagline {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.6rem;
+            text-align: center;
+            font-weight: 500;
+            letter-spacing: 1px;
+            border-right: 1px solid #a855f7;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: blink 0.75s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: #a855f7; }
+        }
+
+        /* Telegram Button with Pulse Effect */
+        .tg-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #2aabee, #229ed9);
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border: 0.5px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 0.8s ease-out 0.4s both, pulse 2s ease-in-out infinite;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tg-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .tg-button:active::before {
+            width: 150px;
+            height: 150px;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            }
+            50% {
+                transform: scale(1.025);
+                box-shadow: 0 8px 18px rgba(168, 85, 247, 0.5);
+            }
+        }
+
+        .tg-button:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 8px 18px rgba(168, 85, 247, 0.6);
+        }
+
+        .tg-icon {
+            font-size: 0.9rem;
+        }
+
+        /* Feature Cards with 3D Hover */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            padding: 14px 10px;
+            text-align: center;
+            border: 0.5px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.6s;
+            pointer-events: none;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(168, 85, 247, 0.6);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            display: inline-block;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .feature-card h3 {
+            color: #ffffff;
+            font-size: 0.65rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.5rem;
+            line-height: 1.3;
+        }
+
+        /* Section Title with Glow */
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            position: relative;
+            animation: glowText 2s ease-in-out infinite;
+        }
+
+        @keyframes glowText {
+            0%, 100% { text-shadow: 0 0 3px rgba(168, 85, 247, 0.5); }
+            50% { text-shadow: 0 0 10px rgba(168, 85, 247, 0.8); }
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(90deg, #a855f7, #c084fc);
+            margin: 8px auto 0;
+            border-radius: 2px;
+            animation: widthPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes widthPulse {
+            0%, 100% { width: 30px; }
+            50% { width: 50px; }
+        }
+
+        /* Pricing Cards */
+        .pricing {
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            width: 100%;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            padding: 18px 12px;
+            text-align: center;
+            border: 0.5px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.4s ease;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px) rotateX(2deg);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 12px 22px rgba(0, 0, 0, 0.3);
+        }
+
+        .pricing-card.popular {
+            border: 1px solid #a855f7;
+            background: rgba(168, 85, 247, 0.1);
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.9s both, borderPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { border-color: #a855f7; box-shadow: 0 0 5px rgba(168, 85, 247, 0.3); }
+            50% { border-color: #c084fc; box-shadow: 0 0 12px rgba(168, 85, 247, 0.6); }
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -6px;
+            right: 10px;
+            background: linear-gradient(135deg, #a855f7, #c084fc);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.4rem;
+            font-weight: 600;
+            animation: badgeSpin 3s ease-in-out infinite;
+        }
+
+        @keyframes badgeSpin {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        .pricing-name {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .pricing-price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #c084fc;
+            margin-bottom: 10px;
+            animation: priceGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes priceGlow {
+            0%, 100% { text-shadow: 0 0 3px rgba(192, 132, 252, 0.5); }
+            50% { text-shadow: 0 0 8px rgba(192, 132, 252, 0.8); }
+        }
+
+        .pricing-price span {
+            font-size: 0.5rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .pricing-features li {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 4px 0;
+            font-size: 0.45rem;
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-features li:hover {
+            transform: translateX(3px);
+            color: #c084fc;
+        }
+
+        .pricing-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.45rem;
+            transition: all 0.3s ease;
+            border: 0.5px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .pricing-button:hover::before {
+            left: 100%;
+        }
+
+        .pricing-button:hover {
+            background: #a855f7;
+            border-color: #a855f7;
+            transform: scale(1.03);
+        }
+
+        /* Footer */
+        .footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px 10px 10px;
+            border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+            margin-top: 10px;
+            animation: fadeInUp 0.8s ease-out 1s both;
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.4rem;
+            margin-bottom: 5px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.45rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #c084fc;
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-links a:hover {
+            color: #c084fc;
+            transform: translateY(-1px);
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, #a855f7, #c084fc);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            font-size: 0.75rem;
+            color: white;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(168, 85, 247, 0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1a3a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #8b5cf6;
+            border-radius: 2px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a78bfa;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px 8px;
+            }
+            
+            .tg-button {
+                padding: 7px 16px;
+                font-size: 0.55rem;
+            }
+            
+            .tagline {
+                font-size: 0.5rem;
+                white-space: nowrap;
+            }
+            
+            .tagline-wrapper {
+                min-height: 30px;
+            }
+            
+            .scroll-top {
+                bottom: 10px;
+                right: 10px;
+                width: 22px;
+                height: 22px;
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="snow" id="snow"></div>
+    <div class="particles" id="particles"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <div class="scroll-top" id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</div>
+
+    <div class="content">
+        <h1>SOLIDUM<br>VPN</h1>
+        
+        <div class="tagline-wrapper">
+            <div class="tagline" id="typingText">Быстро. Безопасно. Анонимно.</div>
+        </div>
+        
+        <a href="https://t.me/SolidumVPN" class="tg-button" target="_blank">
+            <span class="tg-icon">📱</span>
+            <span>Перейти в Telegram</span>
+            <span>✈️</span>
+        </a>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Высокая скорость</h3>
+                <p>Оптимальные серверы для быстрого соединения</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Полная защита</h3>
+                <p>Шифрование трафика и защита данных</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3>Глобальный доступ</h3>
+                <p>Обход ограничений и доступ к контенту</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Поддержка 24/7</h3>
+                <p>Оперативная помощь в Telegram</p>
+            </div>
+        </div>
+
+        <div class="pricing">
+            <h2 class="section-title">Выберите тариф</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-name">Месяц</div>
+                    <div class="pricing-price">299 ₽<span>/мес</span></div>
+                    <ul class="pricing-features">
+                        <li>✓ Неограниченный трафик</li>
+                        <li>✓ Высокая скорость</li>
+                        <li>✓ 10+ стран</li>
+                        <li>✓ Поддержка 24/7</li>
+                    </ul>
+                    <a href="https://t.me/SolidumVPN" class="pricing-button" target="_blank">Подробнее</a>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="popular-badge">🔥 Популярный</div>
+                    <div class="pricing-name">3 месяца</div>
+                    <div class="pricing-price">749 ₽<span>/3 мес</span></div>
+                    <ul class="pricing-features">
+                        <li>✓ Экономия 15%</li>
+                        <li>✓ Неограниченный трафик</li>
+                        <li>✓ Высокая скорость</li>
+                        <li>✓ 10+ стран</li>
+                        <li>✓ Поддержка 24/7</li>
+                    </ul>
+                    <a href="https://t.me/SolidumVPN" class="pricing-button" target="_blank">Подробнее</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-name">12 месяцев</div>
+                    <div class="pricing-price">2 490 ₽<span>/год</span></div>
+                    <ul class="pricing-features">
+                        <li>✓ Экономия 30%</li>
+                        <li>✓ Неограниченный трафик</li>
+                        <li>✓ Высокая скорость</li>
+                        <li>✓ 10+ стран</li>
+                        <li>✓ Поддержка 24/7</li>
+                    </ul>
+                    <a href="https://t.me/SolidumVPN" class="pricing-button" target="_blank">Подробнее</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-links">
+                <a href="https://t.me/SolidumVPN" target="_blank">Telegram</a>
+                <a href="#">Политика конфиденциальности</a>
+                <a href="#">Пользовательское соглашение</a>
+                <a href="#">Контакты</a>
+            </div>
+            <p>© 2024 SOLIDUM VPN. Все права защищены.</p>
+        </div>
+    </div>
+
+    <script>
+        // Snowflakes
+        function createSnowflakes() {
+            const snowContainer = document.getElementById('snow');
+            const snowflakeCount = 100;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                const symbols = ['❄️', '❅', '❆', '✧', '✦', '·', '*'];
+                snowflake.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                const size = Math.random() * 10 + 5;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 8 + 5;
+                const delay = Math.random() * 10;
+                const opacity = Math.random() * 0.5 + 0.3;
+                snowflake.style.fontSize = size + 'px';
+                snowflake.style.left = left + '%';
+                snowflake.style.animationDuration = duration + 's';
+                snowflake.style.animationDelay = delay + 's';
+                snowflake.style.opacity = opacity;
+                snowContainer.appendChild(snowflake);
+            }
+        }
+
+        // Floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 2.5 + 1;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 20;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = left + '%';
+                particle.style.animationDuration = duration + 's';
+                particle.style.animationDelay = delay + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Cursor glow
+        const cursorGlow = document.getElementById('cursorGlow');
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        // Typing effect
+        const texts = [
+            'Быстро. Безопасно. Анонимно.',
+            'Без логов. Полная анонимность.',
+            'Военное шифрование.',
+            'Поддержка 24/7.',
+            'Обходим любые блокировки.'
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById('typingText');
+
+        function typeEffect() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % texts.length;
+                    setTimeout(typeEffect, 500);
+                    return;
+                }
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                if (charIndex === currentText.length) {
+                    isDeleting = true;
+                    setTimeout(typeEffect, 2000);
+                    return;
+                }
+            }
+            setTimeout(typeEffect, isDeleting ? 50 : 100);
+        }
+
+        // Scroll to top button
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('show');
+            } else {
+                scrollTop.classList.remove('show');
+            }
+        });
+
+        // Initialize
+        createSnowflakes();
+        createParticles();
+        setTimeout(typeEffect, 500);
+    </script>
+</body>
+</html>
