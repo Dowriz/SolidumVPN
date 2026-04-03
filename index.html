@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="SolidumVPN - Лучший и безопасный выбор для защиты ваших данных, анонимности и свободного доступа в интернет. Высокая скорость, надежное шифрование, поддержка 24/7.">
     <title>SolidumVPN</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='30' fill='%2300eebe' stroke='%2340ffd0' stroke-width='3' /%3E%3Cellipse cx='50' cy='50' rx='45' ry='12' fill='none' stroke='%2340ffd0' stroke-width='3' /%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -13,7 +15,7 @@
 
         body {
             font-family: 'Segoe UI', 'Poppins', 'Inter', system-ui, -apple-system, 'Montserrat', sans-serif;
-            background: #0a0418;
+            background: #041a18;
             min-height: 100vh;
             color: #fff;
             overflow-x: hidden;
@@ -27,7 +29,7 @@
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: radial-gradient(circle at 30% 10%, #3a0f6e, #080018);
+            background: radial-gradient(circle at 30% 10%, #008f7a, #021210);
         }
 
         .aurora {
@@ -38,9 +40,9 @@
             height: 100%;
             z-index: -1;
             background: 
-                radial-gradient(ellipse at 40% 50%, rgba(156, 70, 255, 0.3) 0%, transparent 55%),
-                radial-gradient(ellipse at 80% 20%, rgba(100, 50, 210, 0.4) 0%, transparent 60%),
-                radial-gradient(ellipse at 10% 85%, rgba(200, 80, 255, 0.25) 0%, transparent 60%);
+                radial-gradient(ellipse at 40% 50%, rgba(0, 238, 190, 0.35) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 210, 170, 0.4) 0%, transparent 60%),
+                radial-gradient(ellipse at 10% 85%, rgba(64, 255, 208, 0.3) 0%, transparent 60%);
             animation: auroraShift 10s infinite alternate ease-in-out;
             filter: blur(50px);
         }
@@ -72,10 +74,19 @@
             align-items: center;
             justify-content: center;
             gap: 0.3rem;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .glow-title, .glow-title-second {
+        .glow-title {
+            font-size: clamp(3.5rem, 12vw, 7rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .glow-title-second {
             font-size: clamp(3.5rem, 12vw, 7rem);
             font-weight: 900;
             letter-spacing: -0.02em;
@@ -85,22 +96,22 @@
         }
 
         .telegram-bar {
-            background: rgba(30, 20, 55, 0.6);
+            background: rgba(0, 70, 65, 0.65);
             backdrop-filter: blur(8px);
             border-radius: 60px;
             padding: 0.9rem 2rem;
-            margin: 0 auto 1.2rem auto;
+            margin: 0 auto 1rem auto;
             display: inline-flex;
             align-items: center;
             gap: 1rem;
-            border: 1px solid rgba(160, 120, 255, 0.5);
+            border: 1px solid rgba(0, 238, 190, 0.85);
             text-decoration: none;
             color: white;
         }
 
         .telegram-bar i {
             font-size: 1.8rem;
-            background: linear-gradient(135deg, #d9b4ff, #a07eff);
+            background: linear-gradient(135deg, #a0ffe8, #00eebe);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
@@ -109,34 +120,37 @@
         .telegram-bar span {
             font-size: 1.2rem;
             font-weight: 500;
+            letter-spacing: 0.3px;
         }
 
         .telegram-bar .link {
             font-weight: 700;
-            color: #c6aeff;
+            color: #80ffe0;
+            text-decoration: none;
         }
 
         .cards-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.8rem;
-            margin: 0.5rem 0 2rem 0;
+            margin-top: 0.5rem;
         }
 
         .card {
-            background: rgba(30, 20, 55, 0.6);
+            background: rgba(0, 70, 65, 0.65);
             backdrop-filter: blur(8px);
             border-radius: 28px;
             padding: 1.8rem 1.5rem;
             text-align: center;
-            border: 1px solid rgba(160, 120, 255, 0.4);
+            border: 1px solid rgba(0, 238, 190, 0.75);
             box-shadow: 0 10px 25px -8px rgba(0,0,0,0.4);
         }
 
         .card i {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #d9b4ff, #a07eff);
+            display: inline-block;
+            background: linear-gradient(135deg, #a0ffe8, #00eebe);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
@@ -146,112 +160,13 @@
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.6rem;
+            letter-spacing: -0.3px;
         }
 
         .card p {
             font-size: 0.85rem;
             opacity: 0.75;
             line-height: 1.4;
-        }
-
-        .ornament-divider {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            margin: 1.5rem auto 1rem auto;
-            opacity: 0.6;
-        }
-        .ornament-divider .line {
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #a07eff, #d9b4ff, #a07eff, transparent);
-            border-radius: 2px;
-        }
-        .ornament-divider .dot {
-            width: 5px;
-            height: 5px;
-            background: #c6aeff;
-            border-radius: 50%;
-        }
-
-        .collab-section {
-            background: rgba(20, 12, 40, 0.75);
-            backdrop-filter: blur(12px);
-            border-radius: 50px;
-            padding: 0.5rem 1.2rem;
-            margin: 0.5rem auto 0.8rem auto;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            border: 1px solid rgba(160, 120, 255, 0.55);
-            width: auto;
-            max-width: 95%;
-        }
-        .collab-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(0,0,0,0.3);
-            padding: 0.25rem 0.8rem;
-            border-radius: 40px;
-            text-decoration: none;
-            color: white;
-        }
-        .collab-item i {
-            font-size: 1.2rem;
-            background: linear-gradient(145deg, #e0c3ff, #b77eff);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-        .collab-text {
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-        .collab-text small {
-            font-size: 0.6rem;
-            opacity: 0.7;
-            margin-left: 3px;
-        }
-        .collab-divider {
-            font-size: 0.9rem;
-            font-weight: 800;
-            color: #b77eff;
-        }
-
-        .code-frame {
-            background: rgba(10, 5, 22, 0.9);
-            backdrop-filter: blur(8px);
-            border-radius: 24px;
-            border: 1px solid rgba(160, 120, 255, 0.6);
-            padding: 0;
-            margin: 0.5rem auto 0 auto;
-            max-width: 950px;
-            overflow: hidden;
-        }
-        .code-content {
-            font-family: 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
-            font-size: 0.8rem;
-            white-space: pre-wrap;
-            word-break: break-all;
-            color: #cdd9ff;
-            background: #03000e;
-            padding: 1rem;
-            max-height: 450px;
-            overflow-y: auto;
-            line-height: 1.45;
-        }
-        .code-content::-webkit-scrollbar {
-            width: 5px;
-        }
-        .code-content::-webkit-scrollbar-track {
-            background: #1a1030;
-        }
-        .code-content::-webkit-scrollbar-thumb {
-            background: #a07eff;
-            border-radius: 10px;
         }
 
         #snowCanvas {
@@ -264,10 +179,19 @@
             z-index: 5;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            overflow-y: auto;
+        }
+
         @media (max-width: 768px) {
             .cards-container {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
+                margin-top: 0.5rem;
             }
             .content {
                 padding: 1.5rem 1rem 4rem 1rem;
@@ -278,20 +202,41 @@
             .card h3 {
                 font-size: 1.2rem;
             }
-            .collab-section {
-                padding: 0.4rem 1rem;
-                gap: 0.4rem;
+            .card i {
+                font-size: 2rem;
             }
-            .collab-item {
-                padding: 0.2rem 0.6rem;
+            .card p {
+                font-size: 0.75rem;
             }
-            .collab-text {
-                font-size: 0.7rem;
+            .telegram-bar {
+                padding: 0.7rem 1.5rem;
+                gap: 0.7rem;
+                margin-bottom: 0.8rem;
             }
-            .code-content {
-                font-size: 0.65rem;
-                padding: 0.8rem;
-                max-height: 300px;
+            .telegram-bar i {
+                font-size: 1.4rem;
+            }
+            .telegram-bar span {
+                font-size: 0.9rem;
+            }
+            .title-group {
+                gap: 0.2rem;
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cards-container {
+                gap: 0.8rem;
+            }
+            .card {
+                padding: 1rem 0.8rem;
+            }
+            .card h3 {
+                font-size: 1rem;
+            }
+            .card i {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -309,9 +254,8 @@
         <div class="glow-title-second">VPN</div>
     </div>
 
-    <a href="https://t.me/SolidumVPN" target="_blank" class="telegram-bar">
+    <a href="https://t.me/SolidumVPN" target="_blank" rel="noopener noreferrer" class="telegram-bar">
         <i class="fab fa-telegram-plane"></i>
-        <span>Наш Telegram:</span>
         <span class="link">@SolidumVPN</span>
     </a>
 
@@ -336,36 +280,6 @@
             <h3>Анонимность</h3>
             <p>Никаких логов, полная конфиденциальность</p>
         </div>
-    </div>
-
-    <div class="ornament-divider">
-        <div class="line"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="line"></div>
-    </div>
-
-    <div class="collab-section">
-        <a href="https://t.me/SolidumVPN" target="_blank" class="collab-item">
-            <i class="fab fa-telegram"></i>
-            <span class="collab-text">SOLIDUM VPN <small>official</small></span>
-        </a>
-        <span class="collab-divider">✦</span>
-        <a href="https://t.me/TULYA34_KEY" target="_blank" class="collab-item">
-            <i class="fab fa-telegram-plane"></i>
-            <span class="collab-text">TULYA34_KEY <small>collab</small></span>
-        </a>
-    </div>
-
-    <div class="ornament-divider">
-        <div class="line"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="line"></div>
-    </div>
-
-    <div class="code-frame">
-        <div class="code-content">https://gist.githubusercontent.com/Dowriz/12ef5d997f3565d7cf6dfdb048df8318/raw/a819edbdbf643f9158c9d5f2647042011085c3df/tulya34.txt</div>
     </div>
 </div>
 
@@ -413,11 +327,12 @@
 
         function initSnow(count) {
             snowflakes = [];
-            for (let i = 0; i < count; i++) snowflakes.push(new Snow());
+            for (let i = 0; i < count; i++) {
+                snowflakes.push(new Snow());
+            }
         }
 
         function animateSnow() {
-            if (!ctx) return;
             ctx.clearRect(0, 0, width, height);
             for (let flake of snowflakes) {
                 flake.update();
@@ -426,16 +341,24 @@
             requestAnimationFrame(animateSnow);
         }
 
+        function handleResize() {
+            resizeCanvas();
+            let newCount = Math.floor((width * height) / 2500);
+            newCount = Math.min(500, Math.max(200, newCount));
+            initSnow(newCount);
+        }
+
         resizeCanvas();
-        let snowCount = Math.min(500, Math.max(200, Math.floor((width * height) / 2500)));
+        let snowCount = Math.floor((width * height) / 2500);
+        snowCount = Math.min(500, Math.max(200, snowCount));
         initSnow(snowCount);
         animateSnow();
+
         window.addEventListener('resize', () => {
-            resizeCanvas();
-            let newCount = Math.min(500, Math.max(200, Math.floor((width * height) / 2500)));
-            initSnow(newCount);
+            handleResize();
         });
     })();
 </script>
+
 </body>
 </html>
